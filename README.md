@@ -95,3 +95,9 @@ Dalam Rust, variabel `static` secara default bersifat immutable (tidak dapat diu
 Rust menerapkan aturan ini untuk mencegah race condition dan memastikan thread safety. Jika Rust mengizinkan mutasi langsung pada variabel `static` seperti di Java, maka akan ada risiko perubahan data yang tidak aman jika beberapa thread mengaksesnya secara bersamaan. Dengan menggunakan `lazy_static!`, kita dapat menginisialisasi struktur data yang kompleks, seperti `Vec` dan `DashMap`, sebagai `static`, namun tetap memastikan akses yang aman melalui mekanisme sinkronisasi seperti `RwLock`.
 
 #### Reflection Subscriber-2
+
+1. Saya telah mengeksplorasi `lib.rs` dan menemukan bahwa file ini berisi informasi penting yang digunakan oleh berbagai bagian aplikasi, seperti penanganan error, root URL, serta konfigurasi Singleton untuk pengelolaan aplikasi.  
+
+2. Dengan menerapkan pola Observer, menambahkan subscriber baru menjadi lebih mudah karena sistemnya fleksibel dan tidak memerlukan perubahan besar dalam kode utama. Jika ingin menjalankan beberapa instance aplikasi, kita cukup mendaftarkan subscriber ke aplikasi lain melalui API yang sudah tersedia.  
+
+3. Pengujian menggunakan Postman atau pembuatan koleksi request sangat membantu dalam memastikan aplikasi mengirim dan menerima respons dengan benar berdasarkan data aktual.
