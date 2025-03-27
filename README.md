@@ -86,4 +86,12 @@ This is the place for you to write reflections:
 
 #### Reflection Subscriber-1
 
+#### 1. Mengapa Menggunakan `RwLock` dan Bukan `Mutex`?
+Dalam tutorial ini, kita menggunakan `RwLock<Vec<Notification>>` untuk menyinkronkan akses ke daftar notifikasi. `RwLock` dipilih karena memungkinkan multiple thread untuk membaca (`read()`) secara bersamaan, tetapi hanya satu thread yang dapat menulis (`write()`) pada satu waktu. Hal ini lebih efisien dibandingkan `Mutex` yang hanya memungkinkan satu thread mengakses data, baik untuk membaca maupun menulis.
+
+#### 2. Mengapa Rust Tidak Mengizinkan Mutasi Langsung pada Variabel `static`?
+Dalam Rust, variabel `static` secara default bersifat immutable (tidak dapat diubah), berbeda dengan Java yang memungkinkan mutasi melalui metode statis. Untuk mengubah nilai `static` di Rust, kita membutuhkan mekanisme sinkronisasi seperti `Mutex` atau `RwLock`, yang memastikan akses data yang aman dalam lingkungan multithreading.
+
+Rust menerapkan aturan ini untuk mencegah race condition dan memastikan thread safety. Jika Rust mengizinkan mutasi langsung pada variabel `static` seperti di Java, maka akan ada risiko perubahan data yang tidak aman jika beberapa thread mengaksesnya secara bersamaan. Dengan menggunakan `lazy_static!`, kita dapat menginisialisasi struktur data yang kompleks, seperti `Vec` dan `DashMap`, sebagai `static`, namun tetap memastikan akses yang aman melalui mekanisme sinkronisasi seperti `RwLock`.
+
 #### Reflection Subscriber-2
